@@ -1,6 +1,8 @@
 const express = require('express')
-const mongoose = require('mongoose');
 const Product = require('./models/product.model.js')
+const mongoose = require('mongoose');
+require('dotenv').config()
+
 const productRoute = require('./routes/product.route.js')
 
 const app = express()
@@ -12,7 +14,9 @@ app.use(express.urlencoded({extended: false}))
 // routes
 app.use("/api/products", productRoute);
 
-mongoose.connect("mongodb://localhost:27017/productsDB")
+const dbURL = process.env.DB_URL
+
+mongoose.connect(dbURL)
 .then(() => {
     console.log("Connected to database !");
     app.listen(3000, () => {
@@ -22,3 +26,4 @@ mongoose.connect("mongodb://localhost:27017/productsDB")
 .catch(() => {
     console.log("Connection failed !")
 })
+

@@ -2,6 +2,9 @@
 
 ## Installation / Configuration
 
+### JSON Viewer
+- Install JSON Viewer plugin in Google Chrome
+
 ### index.js
 - Create a new folder and command to create package.json file
 ``` properties
@@ -212,7 +215,7 @@ app.use(express.json())
 }]
 ```
 
-- Create a new <u>GET</u> endpoint : ​http://localhost:3000/api/products and update index.js
+- Create a new <u>GET</u> endpoint : **​http://localhost:3000/api/products** and update index.js
 ``` javascript
 app.get('/api/products', async (req, res) => {
     try {
@@ -223,9 +226,9 @@ app.get('/api/products', async (req, res) => {
     }
 })
 ```
-and localhost:3000/api/products/id and update index.js
+and **http://localhost:3000/api/product/id** and update index.js
 ``` javascript
-app.get('/api/products/:id', async (req, res) => {
+app.get('/api/product/:id', async (req, res) => {
     try {
         const { id } = req.params
         const product = await Product.findById(id);

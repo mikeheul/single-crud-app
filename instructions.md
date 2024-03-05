@@ -2,7 +2,7 @@
 
 ## Installation
 - Create a new folder and command to create package.json file
-``` bash
+``` properties
 npm init -y
 ```
 
@@ -12,7 +12,7 @@ npm init -y
 console.log("Hello");
 ```
 
-``` bash
+``` properties
 node index.js
 ```
 
@@ -34,12 +34,12 @@ node index.js
 ```
 
 - It will run index.js
-``` shell
+``` properties
 npm run serve
 ```
 
 - Install Express for backend
-``` shell
+``` properties
 npm i express
 ```
 
@@ -74,5 +74,90 @@ app.get('/', (req, res) => {
 
 - In browser : http://localhost:3000 URL will display "Hello from Node API" message
 - In VSCode with RapidAPI Client will display all details about this endpoint
+
+- To refresh automatically after update : install nodemon package
+``` properties
+npm i nodemon -D
+```
+
+- And update package.json
+``` json
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "node index.js",
+    "dev": "nodemon index.js"
+},
+```
+
+- Now, in shell :
+``` properties
+npm run dev
+```
+
+- Install MongoDB and Mongoose
+``` properties
+npm i mongodb
+npm i mongoose
+```
+
+- Update index.js to test database connection
+``` javascript
+const express = require('express')
+// require mongoose
+const mongoose = require('mongoose');
+const app = express()
+
+
+app.listen(3000, () => {
+    console.log("Server is running on port 3000");
+})
+
+// GET route
+app.get('/', (req, res) => {
+    res.send("Hello from Node API Server");
+})
+
+// Test database connection
+mongoose.connect("mongodb://localhost:27017/ticketDB")
+.then(() => {
+    console.log("Connected to database !");
+})
+.catch(() => {
+    console.log("Connection failed !")
+})
+```
+
+- And optimize it ! Try first to connect database and after run server
+``` javascript
+const express = require('express')
+const mongoose = require('mongoose');
+const app = express()
+
+// GET route
+app.get('/', (req, res) => {
+    res.send("Hello from Node API Server");
+})
+
+mongoose.connect("mongodb://localhost:27017/ticketDB")
+.then(() => {
+    console.log("Connected to database !");
+    app.listen(3000, () => {
+        console.log("Server is running on port 3000");
+    })
+})
+.catch(() => {
+    console.log("Connection failed !")
+})
+```
+
+
+
+
+
+
+
+
+
+
 
 

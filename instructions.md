@@ -34,13 +34,18 @@ node index.js
 ```
 
 - It will run index.js
-``` bash
+``` shell
 npm run serve
 ```
 
 - Install Express for backend
-``` bash
+``` shell
 npm i express
+```
+
+- Add a .gitignore file in root folder to ignore "node_modules" folder
+```
+node_modules
 ```
 
 - Check if express dependencies are installed in package.json

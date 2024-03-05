@@ -274,6 +274,16 @@ app.delete('/api/product/:id', async (req, res) => {
 })
 ```
 
+- Add middleware to post data in RapidAPI Client through URL Form encoded
+``` javascript
+const app = express()
+// middleware to manage JSON products
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+```
+
+
+
 
 
 

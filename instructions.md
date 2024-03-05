@@ -1,6 +1,8 @@
 # Single CRUD API app (Node JS, Express, MongoDB)
 
-## Installation
+## Installation / Configuration
+
+### index.js
 - Create a new folder and command to create package.json file
 ``` properties
 npm init -y
@@ -38,6 +40,7 @@ node index.js
 npm run serve
 ```
 
+### Express
 - Install Express for backend
 ``` properties
 npm i express
@@ -75,6 +78,7 @@ app.get('/', (req, res) => {
 - In browser : http://localhost:3000 URL will display "Hello from Node API" message
 - In VSCode with RapidAPI Client will display all details about this endpoint
 
+### nodemon
 - To refresh automatically after update : install nodemon package
 ``` properties
 npm i nodemon -D
@@ -94,6 +98,7 @@ npm i nodemon -D
 npm run dev
 ```
 
+### MongoDB and Mongoose
 - Install MongoDB and Mongoose
 ``` properties
 npm i mongodb
@@ -148,6 +153,41 @@ mongoose.connect("mongodb://localhost:27017/ticketDB")
 .catch(() => {
     console.log("Connection failed !")
 })
+```
+
+## Models
+- Create a new folder "models" in application root folder and a "product.model.js" file inside it to create Product schema 
+``` javascript
+const mongoose = require('mongoose');
+
+const ProductSchema = mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: [true, "Please enter product name"],
+        },
+        quantity: {
+            type: Number,
+            required: [true, "Please enter product quantity"],
+            default: 0
+        },
+        price: {
+            type: Number,
+            required: [true, "Please enter product price"],
+            default: 0
+        },
+        image: {
+            type: String,
+            required: false
+        },
+    },
+    {
+        timestamps: true // createdAt and updatedAt
+    }
+);
+
+const Product = mongoose.model("Product", ProductSchema);
+module.exports = Product;
 ```
 
 

@@ -226,12 +226,30 @@ app.get('/api/products', async (req, res) => {
     }
 })
 ```
-and **http://localhost:3000/api/product/id** and update index.js
+and GET product **http://localhost:3000/api/product/id** and update index.js
 ``` javascript
 app.get('/api/product/:id', async (req, res) => {
     try {
         const { id } = req.params
         const product = await Product.findById(id);
+        res.status(200).json(product);
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+```
+and UPDATE a particular product 
+``` javascript
+app.put('/api/product/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findByIdAndUpdate(id, req.body)
+        
+        if(!product) {
+            return res.status(404).json({message: "Product not found"});
+        }
+
+        const updatedProduct = await Product.findById(id);
         res.status(200).json(product);
     } catch (error) {
         res.status(500).json({message: error.message})

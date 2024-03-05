@@ -8,19 +8,12 @@ const productRoute = require('./routes/product.route.js')
 const app = express()
 
 // middleware to manage JSON products
+app.set('view engine', 'ejs'); // Set EJS as the template engine
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 // routes
 app.use("/api/products", productRoute);
-
-// Serve static files from the "public" directory
-app.use(express.static('public'));
-
-// Route to display the HTML page
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
-});
 
 const dbURL = process.env.DB_URL
 

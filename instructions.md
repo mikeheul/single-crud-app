@@ -226,7 +226,7 @@ app.get('/api/products', async (req, res) => {
     }
 })
 ```
-and GET product **http://localhost:3000/api/product/id** and update index.js
+- GET product **http://localhost:3000/api/product/id** and update index.js
 ``` javascript
 app.get('/api/product/:id', async (req, res) => {
     try {
@@ -238,7 +238,7 @@ app.get('/api/product/:id', async (req, res) => {
     }
 })
 ```
-and UPDATE a particular product 
+- UPDATE a particular product **http://localhost:3000/api/product/id** (and create an endpoint in RapidAPI Client)
 ``` javascript
 app.put('/api/product/:id', async (req, res) => {
     try {
@@ -256,6 +256,24 @@ app.put('/api/product/:id', async (req, res) => {
     }
 })
 ```
+- DELETE a particular product **http://localhost:3000/api/product/:id**
+``` javascript
+app.delete('/api/product/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findByIdAndDelete(id, req.body)
+        
+        if(!product) {
+            return res.status(404).json({message: "Product not found"});
+        }
+
+        res.status(200).json({message: "Product deleted"});
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+```
+
 
 
 

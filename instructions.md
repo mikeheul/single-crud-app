@@ -43,3 +43,31 @@ npm run serve
 npm i express
 ```
 
+- Check if express dependencies are installed in package.json
+``` json
+"dependencies": {
+    "express": "^4.18.3"
+}
+```
+
+- On https://www.npmjs.com/package/express, copy / paste boilerplate in index.js
+``` javascript
+const express = require('express')
+const app = express()
+
+app.listen(3000, () => {
+    console.log("Server is running on port 3000");
+})
+```
+
+- Add request and reponse get method on "/"
+``` javascript
+app.get('/', (req, res) => {
+    res.send("Hello from Node API")
+})
+```
+
+- In browser : http://localhost:3000 URL will display "Hello from Node API" message
+- In VSCode with RapidAPI Client will display all details about this endpoint
+
+

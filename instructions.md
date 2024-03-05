@@ -1,5 +1,15 @@
 # Single CRUD API app (Node JS, Express, MongoDB)
 
+- [Single CRUD API app (Node JS, Express, MongoDB)](#single-crud-api-app-node-js-express-mongodb)
+  - [Installation / Configuration](#installation--configuration)
+    - [JSON Viewer](#json-viewer)
+    - [index.js](#indexjs)
+    - [Express](#express)
+    - [nodemon](#nodemon)
+    - [MongoDB and Mongoose](#mongodb-and-mongoose)
+  - [Models](#models)
+  - [MVC Structure](#mvc-structure)
+
 ## Installation / Configuration
 
 ### JSON Viewer
@@ -281,6 +291,127 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 ```
+
+## MVC Structure
+
+- Optimize routes API well structured : create a "routes" folder (root) and "product.route.js" inside it, a "controllers" folder with "product.controller.js" inside it.
+
+..index.js
+``` javascript
+const express = require('express')
+const mongoose = require('mongoose');
+const Product = require('./models/product.model.js')
+const productRoute = require('./routes/product.route.js')
+
+const app = express()
+
+// middleware to manage JSON products
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
+// routes
+app.use("/api/products", productRoute);
+
+mongoose.connect("mongodb://localhost:27017/productsDB")
+.then(() => {
+    console.log("Connected to database !");
+    app.listen(3000, () => {
+        console.log("Server is running on port 3000");
+    })
+})
+.catch(() => {
+    console.log("Connection failed !")
+})
+```
+
+..product.route.js
+``` javascript
+const express = require('express');
+const Product = require('../models/product.model.js')
+const router = express.Router();
+const { getProducts, getProduct, createProduct, updateProduct, deleteProduct } = require('../controllers/product.controller.js')
+
+router.get('/', getProducts);
+router.get('/:id', getProduct);
+router.post('/', createProduct);
+router.put('/:id', updateProduct);
+router.delete('/:id', deleteProduct);
+
+module.exports = router;
+```
+
+..product.controller.js
+``` javascript
+const Product = require('../models/product.model.js')
+
+const getProducts = async (req, res) => {
+    try {
+        const products = await Product.find({})
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+const getProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id);
+        res.status(200).json(product);
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+const createProduct = async (req, res) => {
+    try {
+        const product = await Product.create(req.body)
+        res.status(200).send(product)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }    
+}
+
+const updateProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findByIdAndUpdate(id, req.body)
+        
+        if(!product) {
+            return res.status(404).json({message: "Product not found"});
+        }
+
+        const updatedProduct = await Product.findById(id);
+        res.status(200).json(product);
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+const deleteProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findByIdAndDelete(id, req.body)
+        
+        if(!product) {
+            return res.status(404).json({message: "Product not found"});
+        }
+
+        res.status(200).json({message: "Product deleted"});
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+module.exports = {
+    getProducts,
+    getProduct,
+    createProduct,
+    updateProduct,
+    deleteProduct
+}
+```
+
 
 
 

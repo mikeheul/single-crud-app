@@ -198,10 +198,49 @@ const app = express()
 app.use(express.json())
 ```
 
-- In RapidAPI Client, create a new <u>POST</u> endpoint : http://localhost:3000/api/products and add JSON value (JSON tab in Body part)
-``` properties
-
+- In RapidAPI Client, create a new <u>POST</u> endpoint : http://localhost:3000/api/products and add JSON value (JSON tab in Body part) and send it !
+``` json
+[{
+  "name": "pancake",
+  "quantity": 2,
+  "price": 3.99
+},
+{
+  "name": "tomato",
+  "quantity": 5,
+  "price": 1.99
+}]
 ```
+
+- Create a new <u>GET</u> endpoint : ​http://localhost:3000/api/products and update index.js
+``` javascript
+app.get('/api/products', async (req, res) => {
+    try {
+        const products = await Product.find({})
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+```
+and localhost:3000/api/products/id and update index.js
+``` javascript
+app.get('/api/products/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+        const product = await Product.findById(id);
+        res.status(200).json(product);
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+```
+
+
+
+
+
+
 
 
 

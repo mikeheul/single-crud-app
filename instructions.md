@@ -105,6 +105,8 @@ npm i mongodb
 npm i mongoose
 ```
 
+- In MongoDB Compass, create a new database named "productsDB" with "products" collection
+
 - Update index.js to test database connection
 ``` javascript
 const express = require('express')
@@ -123,7 +125,7 @@ app.get('/', (req, res) => {
 })
 
 // Test database connection
-mongoose.connect("mongodb://localhost:27017/ticketDB")
+mongoose.connect("mongodb://localhost:27017/productsDB")
 .then(() => {
     console.log("Connected to database !");
 })
@@ -143,7 +145,7 @@ app.get('/', (req, res) => {
     res.send("Hello from Node API Server");
 })
 
-mongoose.connect("mongodb://localhost:27017/ticketDB")
+mongoose.connect("mongodb://localhost:27017/productsDB")
 .then(() => {
     console.log("Connected to database !");
     app.listen(3000, () => {
@@ -189,6 +191,18 @@ const ProductSchema = mongoose.Schema(
 const Product = mongoose.model("Product", ProductSchema);
 module.exports = Product;
 ```
+
+- Configure middleware to send JSON directly to MongoDB through Rapid API Client (VSCode extension)
+``` javascript
+const app = express()
+app.use(express.json())
+```
+
+- In RapidAPI Client, create a new <u>POST</u> endpoint : http://localhost:3000/api/products and add JSON value (JSON tab in Body part)
+``` properties
+
+```
+
 
 
 

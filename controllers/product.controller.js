@@ -1,5 +1,15 @@
 const Product = require('../models/product.model.js')
 
+const displayProducts = async (req, res) => {
+    try {
+        // sort products by price DESC
+        const products = await Product.find({}).sort( { price: -1 } )
+        res.render('index', { products });
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
+
 const getProducts = async (req, res) => {
     try {
         // sort products by price DESC
@@ -66,5 +76,6 @@ module.exports = {
     getProduct,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    displayProducts
 }

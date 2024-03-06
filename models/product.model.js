@@ -31,5 +31,9 @@ ProductSchema.virtual('totalValue').get(function() {
     return this.price * this.quantity;
 });
 
+ProductSchema.virtual('nameUppercase').get(function() {
+    return this.name.charAt(0).toUpperCase() + this.name.slice(1);
+});
+
 const Product = mongoose.model("Product", ProductSchema);
 module.exports = Product;

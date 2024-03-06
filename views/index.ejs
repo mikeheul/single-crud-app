@@ -6,10 +6,10 @@
     <title>Product List</title>
 </head>
 <body>
-    <h1>Product List</h1>
+    <h1>Products List</h1>
     <ul>
         <% products.forEach(product => { %>
-            <li><%=  product.name.charAt(0).toUpperCase() + product.name.slice(1) %> - <%= product.price %> (<%= product.quantity %>) = <%= product.totalValue %></li>
+            <li><a href="/api/products/<%= product.id %>"><%= product.nameUppercase %></a> - <%= product.price %> (<%= product.quantity %>) = <%= product.totalValue %></li>
         <% }) %>
     </ul>
 </body>

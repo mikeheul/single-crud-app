@@ -9,7 +9,7 @@
     <h1>Product List</h1>
     <ul>
         <% products.forEach(product => { %>
-            <li><%= product.name %> - <%= product.price %></li>
+            <li><%=  product.name.charAt(0).toUpperCase() + product.name.slice(1) %> - <%= product.price %></li>
         <% }) %>
     </ul>
 </body>

@@ -26,5 +26,10 @@ const ProductSchema = mongoose.Schema(
     }
 );
 
+// Define a virtual property to calculate total value
+ProductSchema.virtual('totalValue').get(function() {
+    return this.price * this.quantity;
+});
+
 const Product = mongoose.model("Product", ProductSchema);
 module.exports = Product;

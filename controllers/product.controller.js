@@ -10,7 +10,7 @@ const displayProducts = async (req, res) => {
     }
 }
 
-const getProducts = async (req, res) => {
+const getProductsAPI = async (req, res) => {
     try {
         // sort products by price DESC
         const products = await Product.find({}).sort( { price: -1 } )
@@ -21,7 +21,7 @@ const getProducts = async (req, res) => {
     }
 }
 
-const getProduct = async (req, res) => {
+const getProductAPI = async (req, res) => {
     try {
         const { id } = req.params;
         const product = await Product.findById(id);
@@ -31,7 +31,7 @@ const getProduct = async (req, res) => {
     }
 }
 
-const createProduct = async (req, res) => {
+const createProductAPI = async (req, res) => {
     try {
         const product = await Product.create(req.body)
         res.status(200).send(product)
@@ -40,7 +40,7 @@ const createProduct = async (req, res) => {
     }    
 }
 
-const updateProduct = async (req, res) => {
+const updateProductAPI = async (req, res) => {
     try {
         const { id } = req.params;
         const product = await Product.findByIdAndUpdate(id, req.body)
@@ -56,7 +56,7 @@ const updateProduct = async (req, res) => {
     }
 }
 
-const deleteProduct = async (req, res) => {
+const deleteProductAPI = async (req, res) => {
     try {
         const { id } = req.params;
         const product = await Product.findByIdAndDelete(id, req.body)
@@ -71,7 +71,7 @@ const deleteProduct = async (req, res) => {
     }
 }
 
-const deleteProductGet = async (req, res) => {
+const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params;
         const product = await Product.findByIdAndDelete(id, req.body)
@@ -79,7 +79,7 @@ const deleteProductGet = async (req, res) => {
         if(!product) {
             return res.status(404).json({message: "Product not found"});
         }
-        
+
         res.redirect('/api/products/displayProducts');
     } catch (error) {
         res.status(500).json({message: error.message})
@@ -87,11 +87,11 @@ const deleteProductGet = async (req, res) => {
 }
 
 module.exports = {
-    getProducts,
-    getProduct,
-    createProduct,
-    updateProduct,
+    getProductsAPI,
+    getProductAPI,
+    createProductAPI,
+    updateProductAPI,
+    deleteProductAPI,
     deleteProduct,
-    deleteProductGet,
     displayProducts
 }

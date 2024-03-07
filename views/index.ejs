@@ -3,14 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.min.css">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Product List</title>
 </head>
 <body>
-    <h1>Products List</h1>
-    <ul>
-        <% products.forEach(product => { %>
-            <li><a href="/api/products/<%= product.id %>"><%= product.nameUppercase %></a> - <%= product.price %> (<%= product.quantity %>) = <%= product.totalValue %></li>
-        <% }) %>
-    </ul>
+    <main>
+        <h1>Products List</h1>
+        <div class="grid" id="cards">
+            <% products.forEach(product => { %>
+                <article class="card">
+                    <a href="/api/products/<%= product.id %>"><%= product.nameUppercase %></a> (<%= product.quantity %>)<br>  
+                    <p>
+                        Price : <%= product.price %> <br>
+                        Total : <%= product.totalValue %>
+                    </p>
+                    <span class="delete">
+                        <a role="button" href="/api/products/deleteProduct/<%= product.id %>"><i class="ri-delete-bin-6-line"></i></a>
+                    </span>
+                </article>
+            <% }) %>
+        </div>
+    </main>
 </body>
 </html>

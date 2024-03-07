@@ -1,13 +1,14 @@
 const express = require('express')
-const Product = require('./models/product.model.js')
+const Product = require('./models/product.model.js');
 const mongoose = require('mongoose');
-require('dotenv').config()
-const connectToDB = require('./models/db.js')
-const productRoute = require('./routes/product.route.js')
+require('dotenv').config();
+const productRoute = require('./routes/product.route.js');
 
 const app = express()
 
-// middleware to manage JSON products
+app.use(express.static(__dirname + '/public'))
+
+// middlewares
 app.set('view engine', 'ejs'); // Set EJS as the template engine
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))

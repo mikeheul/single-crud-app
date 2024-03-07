@@ -3,5 +3,53 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Arial';
-    color: red;
 }
+
+main {
+    min-height: 100vh;
+    padding: 20px !important;
+}
+
+article {
+    margin-bottom: 0;
+}
+
+#cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* gap: 10px; */
+    margin-top: 50px;
+}
+
+.card {
+    position: relative;
+    min-height: 200px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+@media(max-width: 970px) {
+    #cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 720px) {
+    #cards {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media(max-width: 340px) {
+    .delete {
+        display: block;
+        position: relative;
+    }
+}
+

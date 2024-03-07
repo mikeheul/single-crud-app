@@ -10,6 +10,8 @@ app.use(express.static(__dirname + '/public'))
 
 // middlewares
 app.set('view engine', 'ejs'); // Set EJS as the template engine
+app.set('views', __dirname + '/views');
+
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 

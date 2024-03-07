@@ -15,7 +15,6 @@ const getProductsAPI = async (req, res) => {
         // sort products by price DESC
         const products = await Product.find({}).sort( { price: -1 } )
         res.status(200).json(products);
-        // res.render('index', { products });
     } catch (error) {
         res.status(500).json({message: error.message})
     }

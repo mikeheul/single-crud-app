@@ -1,9 +1,10 @@
 const express = require('express');
 const Product = require('../models/product.model.js')
 const router = express.Router();
-const { getProductsAPI, getProductAPI, createProductAPI, updateProductAPI, deleteProductAPI, displayProducts, deleteProduct } = require('../controllers/product.controller.js')
+const { getProductsAPI, getProductAPI, createProductAPI, updateProductAPI, deleteProductAPI, displayProducts, deleteProduct, displayProduct } = require('../controllers/product.controller.js')
 
 router.get('/displayProducts', displayProducts);
+router.get('/displayProduct/:id', displayProduct);
 router.get('/deleteProduct/:id', deleteProduct);
 router.get('/', getProductsAPI);
 router.get('/:id', getProductAPI);

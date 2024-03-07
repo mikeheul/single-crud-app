@@ -17,7 +17,7 @@
         <div class="grid" id="cards">
             <% products.forEach(product => { %>
                 <article class="card">
-                    <a href="/api/products/<%= product.id %>"><%= product.nameUppercase %></a> (<%= product.quantity %>)<br>  
+                    <a href="/api/products/displayProduct/<%= product.id %>"><%= product.nameUppercase %></a> (<%= product.quantity %>)<br>  
                     <p>
                         Price : <%= product.price %> <br>
                         Total : <%= product.totalValue %>

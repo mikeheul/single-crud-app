@@ -24,6 +24,7 @@ const displayProduct = async (req, res) => {
     try {
         const { id } = req.params;
         const product = await Product.findById(id)
+        
         res.render('product', { product });
     } catch (error) {
         res.status(500).json({message: error.message})
